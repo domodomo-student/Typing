@@ -5,22 +5,42 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>タイピングゲーム</title>
-    <style>    
+    <style>
+        body{
+            font-size: 2rem;
+        }
         #typed{
             color: red;
+        }
+        #wordSpace{
+            text-align: center;
+        }
+        #text{
+            text-align: center;
+        }
+        #counter{
+            text-align: center;
+            font-size: 5rem;
+        }
+        #buttonSpace{
+            text-align: center;
+        }
+        #timer{
+            text-align: left;
         }
     </style>
 </head>
 <body>
     <div id="timer"></div>
+    <div id="counter"></div>
     <div id="text"></div>
     <div id="wordSpace">
         <span id="typed"></span>
         <span id="untyped"></span>
     </div>
-    <div>
+    <div id="buttonSpace">
         <button id="startButton" onclick="start()">スタート</button>
-        <button id="resetButton" onclick="reset()">リセット</button>
+        <button id="resetButton" onclick="restart()">リセット</button>
     </div>
     <script>
         let count = 3;
@@ -28,6 +48,7 @@
         let typedSpace = document.getElementById("typed");
         let untypedSpace = document.getElementById("untyped");
         let textSpace = document.getElementById("text");
+        timer.textContent = "残り" + time + "秒";
 
         let typeWord = [
             "kyoukarabokuha",
@@ -83,7 +104,9 @@
             "暇な警官",
             "ゴッホの朝顔"
         ];
-
+        function restart() {
+            location.reload();
+        }
         function randomInt(max) {
             return Math.floor(Math.random() * Math.floor(max))
         }
@@ -102,25 +125,41 @@
         }
         function start() {
             if(count === 0) {
+                alert("もう一度プレイするにはリセットボタンを押してください");
                 return;
             }
+            counter.textContent = count;
             let a = setInterval(countdown, 1000);
-            timer.textContent = count;
             function countdown() {
                 count--;
-                timer.textContent = count;
+                counter.textContent = count;
                 if(count === 0) {
-                    timer.textContent = count;
+                    let b = setInterval(timedown, 1000);
+                    function timedown() {
+                        time--;
+                        timer.textContent = "残り" + time + "秒";
+                        if(time === 0) {
+                            clearInterval(b);
+                            //結果表示画面の内容
+                        }
+                    }
+                    counter.textContent = count;
                     clearInterval(a)
+                    counter.textContent = "";
                     update();
                     updateWordSpace();
                     document.addEventListener("keydown", function (e) {
-                        if(e.key !== untyped.substrig(0, 1)) {
+                        if(e.key !== untyped.substring(0, 1)) {
                             return;
                         }
-                        if(e.key === untyped.substrig(0, 1)) {
-                            untyped = untyped.substrig(1);
-                            typed += untyped.substrig(0, 1);
+                        if(e.key === untyped.substring(0, 1) && time !== 0) {
+                            typed += untyped.substring(0, 1);
+                            untyped = untyped.substring(1);
+                            updateWordSpace();
+                            if(untyped === "") {
+                               update();
+                            updateWordSpace();
+                            }
                         }
                     });
                 }
