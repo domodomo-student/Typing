@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>タイピングゲーム</title>
+    <style>    
+        #typed{
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div id="timer"></div>
+    <div id="text"></div>
+    <div id="wordSpace">
+        <span id="typed"></span>
+        <span id="untyped"></span>
+    </div>
+    <div>
+        <button id="startButton" onclick="start()">スタート</button>
+        <button id="resetButton" onclick="reset()">リセット</button>
+    </div>
+    <script>
+        let count = 3;
+        let time = 30;
+        let typedSpace = document.getElementById("typed");
+        let untypedSpace = document.getElementById("untyped");
+        let textSpace = document.getElementById("text");
+
+        let typeWord = [
+            "kyoukarabokuha",
+            "majimannji", 
+            "tanakarabotamoti", 
+            "itinitiryuugaku", 
+            "kanariyabaikyakukanariyabaikyaku", 
+            "kaizokuouniorehanaru", 
+            "masuta-itumono", 
+            "nerukohasodatu", 
+            "natuhakorekara", 
+            "eigatopoppuko-nn", 
+            "saitamasaikyou", 
+            "tennsainobita",
+            "kayoukarahayaoki",
+            "oninikanabou",
+            "ametyannageru",
+            "rua-deturu",
+            "nakimusihakemusi",
+            "gorogorokomikku",
+            "tyuutosaiyou",
+            "youtubernokagami",
+            "torimoti",
+            "masukomitakusann",
+            "masukaranurimasukara",
+            "himanakeikann",
+            "gohhonoasagao"
+        ];
+        let textWord = [
+            "今日から僕は",
+            "マジ卍",
+            "棚からぼたもち",
+            "一日留学",
+            "かなりやばい客カナリヤ売却",
+            "海賊王に俺はなる",
+            "マスターいつもの",
+            "寝る子は育つ",
+            "夏はこれから",
+            "映画とポップコーン",
+            "サイタマ最強",
+            "天才のび太",
+            "火曜から早起き",
+            "鬼に金棒",
+            "飴ちゃんあげる",
+            "ルアーで釣る",
+            "泣き虫は毛虫",
+            "ゴロゴロコミック",
+            "中途採用",
+            "youtuberの鏡",
+            "鳥餅",
+            "マスコミたくさん",
+            "マスカラ塗りますから",
+            "暇な警官",
+            "ゴッホの朝顔"
+        ];
+
+        function randomInt(max) {
+            return Math.floor(Math.random() * Math.floor(max))
+        }
+        function random_num() {
+            let idx = randomInt(typeWord.length);
+            return [typeWord[idx], textWord[idx]];
+        }
+        function update() {
+            typed = "";
+            [untyped, text] = random_num();
+        }
+        function updateWordSpace() {
+            typedSpace.textContent = typed;
+            untypedSpace.textContent = untyped;
+            textSpace.textContent = text;
+        }
+        function start() {
+            if(count === 0) {
+                return;
+            }
+            let a = setInterval(countdown, 1000);
+            timer.textContent = count;
+            function countdown() {
+                count--;
+                timer.textContent = count;
+                if(count === 0) {
+                    timer.textContent = count;
+                    clearInterval(a)
+                    update();
+                    updateWordSpace();
+                    document.addEventListener("keydown", function (e) {
+                        if(e.key !== untyped.substrig(0, 1)) {
+                            return;
+                        }
+                        if(e.key === untyped.substrig(0, 1)) {
+                            untyped = untyped.substrig(1);
+                            typed += untyped.substrig(0, 1);
+                        }
+                    });
+                }
+            }
+        }
+    </script>
+</body>
+</html>
