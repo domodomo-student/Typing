@@ -23,6 +23,7 @@
             font-size: 5rem;
         }
         #buttonSpace{
+            color: aqua;
             text-align: center;
         }
         #timer{
@@ -125,7 +126,7 @@
         }
         function start() {
             if(count === 0) {
-                alert("もう一度プレイするにはリセットボタンを押してください");
+                alert("もう一度プレイするにはリセットボタンを押してください");//countが0以下にならないようにする
                 return;
             }
             counter.textContent = count;
@@ -157,8 +158,8 @@
                             untyped = untyped.substring(1);
                             updateWordSpace();
                             if(untyped === "") {
-                               update();
-                            updateWordSpace();
+                                update();
+                                updateWordSpace();
                             }
                         }
                     });
