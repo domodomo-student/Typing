@@ -29,6 +29,9 @@
         #timer{
             text-align: left;
         }
+        table{
+            background-color: #b8feff;
+        }
     </style>
 </head>
 <body>
@@ -43,13 +46,36 @@
         <button id="startButton" onclick="start()">スタート</button>
         <button id="resetButton" onclick="restart()">リセット</button>
     </div>
+    <div id="result">
+        <table border="1" align="center">
+            <tr>
+                <td>正しく打った回数</td>
+                <td id="tureTypeSpace"></td>
+            </tr>
+            <tr>
+                <td>平均タイプ数</td>
+                <td id="typedCount"></td>
+            </tr>
+            <tr>
+                <td>ミスタイプ</td>
+                <td id="missSpace"></td>
+            </tr>
+        </table>
+    </div>
     <script>
+        let tureType = 0;
+        let typedCount = 0;
+        let typedCountSpace = document.getElementById("typedCount");
+        let miss = 0;
         let count = 3;
         let time = 30;
+        let tureTypeSpace = document.getElementById("tureTypeSpace");
+        let missSpace = document.getElementById("missSpace");
         let typedSpace = document.getElementById("typed");
         let untypedSpace = document.getElementById("untyped");
         let textSpace = document.getElementById("text");
         timer.textContent = "残り" + time + "秒";
+        result.style.display = "none";
 
         let typeWord = [
             "kyoukarabokuha",
@@ -76,7 +102,14 @@
             "masukomitakusann",
             "masukaranurimasukara",
             "himanakeikann",
-            "gohhonoasagao"
+            "gohhonoasagao",
+            "inumoarukebabouniataru",
+            "su-pa-hakka-",
+            "mikeikennennjinia",
+            "bennkeinonakidokoro",
+            "soreikeannpannotoko",
+            "kimetunomaeba",
+            "miseinenninnsyu",
         ];
         let textWord = [
             "今日から僕は",
@@ -103,7 +136,14 @@
             "マスコミたくさん",
             "マスカラ塗りますから",
             "暇な警官",
-            "ゴッホの朝顔"
+            "ゴッホの朝顔",
+            "犬も歩けば棒に当たる",
+            "スーパーハッカー",
+            "未経験エンジニア",
+            "弁慶の泣き所",
+            "それいけアンパン男",
+            "鬼滅の前歯",
+            "未成年飲酒"
         ];
         function restart() {
             location.reload();
@@ -124,6 +164,11 @@
             untypedSpace.textContent = untyped;
             textSpace.textContent = text;
         }
+        function typedCountUp() {
+            typedCount = typedCount / 60;
+            typedCount = Math.round(typedCount * 10) / 10;
+            return typedCount;
+        }
         function start() {
             if(count === 0) {
                 alert("もう一度プレイするにはリセットボタンを押してください");//countが0以下にならないようにする
@@ -141,7 +186,10 @@
                         timer.textContent = "残り" + time + "秒";
                         if(time === 0) {
                             clearInterval(b);
-                            //結果表示画面の内容
+                            result.style.display = "block";//結果表示
+                            missSpace.textContent = miss + "回";
+                            typedCountSpace.textContent = typedCountUp() + "回/秒";
+                            tureTypeSpace.textContent = tureType + "回";
                         }
                     }
                     counter.textContent = count;
@@ -150,10 +198,13 @@
                     update();
                     updateWordSpace();
                     document.addEventListener("keydown", function (e) {
+                        typedCount++;
                         if(e.key !== untyped.substring(0, 1)) {
+                            miss++
                             return;
                         }
                         if(e.key === untyped.substring(0, 1) && time !== 0) {
+                            tureType++;
                             typed += untyped.substring(0, 1);
                             untyped = untyped.substring(1);
                             updateWordSpace();
