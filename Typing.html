@@ -63,6 +63,8 @@
         </table>
     </div>
     <script>
+        const music = new Audio("file:///Users/hiranokoutarou/Downloads/short_punch1.mp3");
+        const music2 = new Audio("file:///Users/hiranokoutarou/Downloads/blip02.mp3");
         let tureType = 0;
         let typedCount = 0;
         let typedCountSpace = document.getElementById("typedCount");
@@ -200,10 +202,13 @@
                     document.addEventListener("keydown", function (e) {
                         typedCount++;
                         if(e.key !== untyped.substring(0, 1)) {
+                            music2.play();
                             miss++
                             return;
                         }
                         if(e.key === untyped.substring(0, 1) && time !== 0) {
+                            music.currentTime = 0;
+                            music.play();
                             tureType++;
                             typed += untyped.substring(0, 1);
                             untyped = untyped.substring(1);
