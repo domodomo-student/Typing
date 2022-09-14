@@ -26,6 +26,28 @@
             color: aqua;
             text-align: center;
         }
+        #startButton{
+            color: #000;
+            background-color: #fff100;
+            border-bottom: 5px solid #ccc100;
+        }
+        #startButton :hover{
+            color: #000;
+            margin-top: 3px;
+            background: #fff100;
+            border-bottom: 2px solid #ccc100;
+        }
+        #resetButton{
+            color: #000;
+            background-color: #fff100;
+            border-bottom: 5px solid #ccc100;
+        }
+        #resetButton :hover{
+            color: #000;
+            margin-top: 3px;
+            background: #fff100;
+            border-bottom: 2px solid #ccc100;
+        }
         #timer{
             text-align: left;
         }
@@ -63,8 +85,8 @@
         </table>
     </div>
     <script>
-        const music = new Audio("https://github.com/domodomo-student/Typing/blob/main/short_punch1.mp3");
-        const music2 = new Audio("https://github.com/domodomo-student/Typing/blob/main/blip02.mp3");
+        const music = new Audio("file:///Users/hiranokoutarou/Downloads/short_punch1.mp3");
+        const music2 = new Audio("file:///Users/hiranokoutarou/Downloads/blip02.mp3");
         let tureType = 0;
         let typedCount = 0;
         let typedCountSpace = document.getElementById("typedCount");
@@ -80,6 +102,7 @@
         result.style.display = "none";
 
         let typeWord = [
+            "yamaihakikara",
             "kyoukarabokuha",
             "majimannji", 
             "tanakarabotamoti", 
@@ -112,8 +135,60 @@
             "soreikeannpannotoko",
             "kimetunomaeba",
             "miseinenninnsyu",
+            "dokusyohadaiji",
+            "minaidetaipinngu",
+            "kateikatumarann",
+            "syokuyokunoaki",
+            "taikonobonnjinn",
+            "fudebakowasureta",
+            "nemurerumorinohime",
+            "bidannsi",
+            "gozennnokoutya",
+            "goemonnburo",
+            "jinnja-e-ru",
+            "pasokonnsyosinnsya",
+            "bakanakaba",
+            "jinnkousui",
+            "hajimetenookatui",
+            "tomodatihyakuninn",
+            "jizokukanounakaihatumokuhyou",
+            "sya-bettomodoki",
+            "toufunokado",
+            "youkaikurokku",
+            "korehaunikamosirenai",
+            "satounogohann",
+            "sarumokikaraotiru",
+            "burakkukigyou",
+            "syougakuseinosakubunn",
+            "basukettogo-ru",
+            "otokomoturaiyo",
+            "mutekinoousama",
+            "kasannkasuisosui",
+            "onnseinyuuryoku",
+            "hinekuredaimyou",
+            "danngoseisaku",
+            "kisikaiseinoitte",
+            "tanakanonakananoka",
+            "sutoronngua-mu",
+            "sukettibukkusu",
+            "nogasazunoisikawa",
+            "kyoukasyokyoukasyuukann",
+            "hifukuwokannrisuru",
+            "hikanndekazehikann",
+            "sinngatakorona",
+            "suikanisio",
+            "bennkyoutanosii",
+            "sinngekinokobito",
+            "saikyoudenndenn",
+            "sakka-denouwokitaeru",
+            "kajibanobaka",
+            "potetofurai",
+            "buresuretto",
+            "syo-tokattowooboeru",
+            "syusekidesotugyou"
         ];
         let textWord = [
+            "病は気から",
             "今日から僕は",
             "マジ卍",
             "棚からぼたもち",
@@ -145,7 +220,58 @@
             "弁慶の泣き所",
             "それいけアンパン男",
             "鬼滅の前歯",
-            "未成年飲酒"
+            "未成年飲酒",
+            "読書は大事",
+            "見ないでタイピング",
+            "家庭科つまらん",
+            "食欲の秋",
+            "太鼓の凡人",
+            "筆箱忘れた",
+            "眠れる森の姫",
+            "美男子",
+            "午前の紅茶",
+            "五右衛門風呂",
+            "ジンジャーエール",
+            "パソコン初心者",
+            "馬鹿なかば",
+            "人工水",
+            "初めてのおかつい",
+            "友達百人",
+            "持続可能な開発目標",
+            "シャーベットもどき",
+            "豆腐の角",
+            "妖怪クロック",
+            "これはウニかもしれない",
+            "佐藤のご飯",
+            "猿も木から落ちる",
+            "ブラック企業",
+            "小学生の作文",
+            "バスケットゴール",
+            "男も辛いよ",
+            "無敵の王様",
+            "過酸化水素水",
+            "音声入力",
+            "ひねくれ大名",
+            "団子製作",
+            "起死回生の一手",
+            "田中の中なのか",
+            "ストロングアーム",
+            "スケッチブックス",
+            "逃さずの石川",
+            "教科書強化週間",
+            "被服管理する",
+            "悲観で風邪ひかん",
+            "新型コロナ",
+            "スイカに塩",
+            "勉強楽しい",
+            "進撃の小人",
+            "最強でんでん",
+            "サッカーで脳を鍛える",
+            "火事場のバカ",
+            "ポテトフライ",
+            "ブレスレット",
+            "ショートカットを覚える",
+            "主席で卒業"
         ];
         function restart() {
             location.reload();
