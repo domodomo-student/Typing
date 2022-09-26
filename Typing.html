@@ -13,10 +13,12 @@
             color: red;
         }
         #wordSpace{
+            font-size: 35px;
             text-align: center;
         }
         #text{
             text-align: center;
+            font-size: 35px;
         }
         #counter{
             text-align: center;
@@ -29,29 +31,24 @@
         #startButton{
             color: #000;
             background-color: #fff100;
+            border-top: 5px solid #ccc100;
             border-bottom: 5px solid #ccc100;
-        }
-        #startButton :hover{
-            color: #000;
-            margin-top: 3px;
-            background: #fff100;
-            border-bottom: 2px solid #ccc100;
+            border-left: 5px solid #ccc100;
+            border-right: 5px solid #ccc100;
         }
         #resetButton{
             color: #000;
             background-color: #fff100;
+            border-top: 5px solid #ccc100;
             border-bottom: 5px solid #ccc100;
-        }
-        #resetButton :hover{
-            color: #000;
-            margin-top: 3px;
-            background: #fff100;
-            border-bottom: 2px solid #ccc100;
+            border-left: 5px solid #ccc100;
+            border-right: 5px solid #ccc100;
         }
         #timer{
             text-align: left;
         }
         table{
+            margin-top: 50px;
             background-color: #b8feff;
         }
     </style>
@@ -65,11 +62,15 @@
         <span id="untyped"></span>
     </div>
     <div id="buttonSpace">
-        <button id="startButton" onclick="start()">スタート</button>
-        <button id="resetButton" onclick="restart()">リセット</button>
+        <button id="startButton" style="width: 10%; padding: 5px; font-size: 13px;" onclick="start()">スタート</button>
+        <button id="resetButton" style="width: 10%; padding: 5px; font-size: 13px;" onclick="restart()">リセット</button>
     </div>
     <div id="result">
         <table border="1" align="center">
+            <tr>
+                <td>ランク</td>
+                <td id="rankSpace"></td>
+            </tr>
             <tr>
                 <td>正しく打った回数</td>
                 <td id="tureTypeSpace"></td>
@@ -85,6 +86,9 @@
         </table>
     </div>
     <script>
+        let botCount = 0;
+        let rankSpace = document.getElementById("rankSpace");
+        let rank = "";
         const music = new Audio("file:///Users/hiranokoutarou/Downloads/short_punch1.mp3");
         const music2 = new Audio("file:///Users/hiranokoutarou/Downloads/blip02.mp3");
         let tureType = 0;
@@ -161,7 +165,7 @@
             "burakkukigyou",
             "syougakuseinosakubunn",
             "basukettogo-ru",
-            "otokomoturaiyo",
+            "otokohaturaiyo",
             "mutekinoousama",
             "kasannkasuisosui",
             "onnseinyuuryoku",
@@ -247,7 +251,7 @@
             "ブラック企業",
             "小学生の作文",
             "バスケットゴール",
-            "男も辛いよ",
+            "男は辛いよ",
             "無敵の王様",
             "過酸化水素水",
             "音声入力",
@@ -318,6 +322,26 @@
                             missSpace.textContent = miss + "回";
                             typedCountSpace.textContent = typedCountUp() + "回/秒";
                             tureTypeSpace.textContent = tureType + "回";
+                            if(tureType <= 50){
+                                rank = "E";
+                            }else if(tureType >= 51 && tureType < 80){
+                                rank = "D";
+                            }else if(tureType >= 80 && tureType < 100){
+                                rank = "C";
+                            }else if(tureType >= 100 && tureType < 150){
+                                rank = "B";
+                            }else if(tureType >= 150 && tureType < 180){
+                                rank = "A";
+                            }else if(tureType >= 180 && tureType < 200){
+                                rank = "S";
+                            }else if(tureType >= 200){
+                                rank = "Z";
+                            }else if(tureType >= 200 && miss === 0){
+                                rank = "GOD";
+                            }else if(tureType > 10000){
+                                rank = "チーター";
+                            }
+                            rankSpace.textContent = rank + "ランク";
                         }
                     }
                     counter.textContent = count;
@@ -328,8 +352,10 @@
                     document.addEventListener("keydown", function (e) {
                         typedCount++;
                         if(e.key !== untyped.substring(0, 1)) {
-                            music2.play();
                             miss++
+                            if(time != 0){
+                                music2.play();
+                            }
                             return;
                         }
                         if(e.key === untyped.substring(0, 1) && time !== 0) {
